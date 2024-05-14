@@ -32,7 +32,7 @@
   "tabs": [
     {
       "name": "API Reference",
-      "url": "api"
+      "url": "api-docs"
     }
   ],
   "anchors": [
@@ -75,15 +75,15 @@
     {
       "group": "API Documentation",
       "pages": [
-        "api/introduction"
+        "api-docs/introduction"
       ]
     },
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api/endpoint/get",
-        "api/endpoint/create",
-        "api/endpoint/delete"
+        "api-docs/endpoint/get",
+        "api-docs/endpoint/create",
+        "api-docs/endpoint/delete"
       ]
     }
   ],
