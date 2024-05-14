@@ -10,7 +10,7 @@
   },
   "servers": [
     {
-      "url": "http://api.video.dev"
+      "url": "https://api.video.dev"
     }
   ],
   "security": [
