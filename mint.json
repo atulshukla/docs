@@ -1,11 +1,16 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Video Dev",
   "logo": {
     "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "/logo/light.svg",
+    "href": "https://video.dev"
   },
-  "openapi": ["api-reference/endpoint/openapi.json"],
+  "modeToggle":{
+    "default":"dark",
+    "isHidden":true
+  },
+  "openapi": ["/api-reference/endpoint/openapi.json"],
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#000",
@@ -25,6 +30,10 @@
       "name": "Discord",
       "url": "https://discord.gg/VMasEVVM"
     }
+  ],
+  "versions":[
+    "222",
+    "wss"
   ],
   "topbarCtaButton": {
     "name": "Github",
@@ -88,6 +97,11 @@
       ]
     }
   ],
+  "feedback":{
+    "thumbsRating":true,
+    "suggestEdit":true,
+    "raiseIssue": true
+  },
   "footerSocials": {
     "x": "https://x.com/videodotdev",
     "github": "https://github.com/videodotdev",
