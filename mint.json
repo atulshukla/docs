@@ -31,10 +31,6 @@
       "url": "https://discord.gg/VMasEVVM"
     }
   ],
-  "versions":[
-    "222",
-    "wss"
-  ],
   "topbarCtaButton": {
     "name": "Github",
     "url": "https://github.com/videodotdev"
