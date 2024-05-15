@@ -94,9 +94,7 @@
     }
   ],
   "feedback":{
-    "thumbsRating":true,
-    "suggestEdit":true,
-    "raiseIssue": true
+    "thumbsRating":true
   },
   "footerSocials": {
     "x": "https://x.com/videodotdev",
