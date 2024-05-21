@@ -8,7 +8,7 @@
   },
   "modeToggle":{
     "default":"dark",
-    "isHidden":true
+    "isHidden":false
   },
   "openapi": ["/api-reference/endpoint/openapi.json"],
   "favicon": "/favicon.svg",
@@ -87,9 +87,9 @@
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoint/import",
+        "api-reference/endpoint/crop",
+        "api-reference/endpoint/trim"
       ]
     }
   ],
