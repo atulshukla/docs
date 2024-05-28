@@ -1,0 +1,34 @@
+---
+title:   "Build, deploy and run cloud functions"
+sidebarTitle: "Overview"
+description: ''
+---
+
+import {cloudUpgradePath, cloudSettingsPath, cloudDashboardPath} from '/snippets/cloud/path-variables.mdx';
+
+import CloudLink from '/snippets/cloud/link.mdx';
+
+Cloud functions are written in `Python` and run in a **video.dev** managed environment, eliminating the need to manage and scale your own servers.
+
+Deployed functions are automatically available as APIs and can also be accessed through the Python client library.
+
+These functions behave like standard Python functions and can be used to create workflows with other cloud functions in the **video.dev** cloud.
+
+<CardGroup cols={2}>
+<Card title="Write Functions" icon="cloud-arrow-up" href="/cloud_functions/create"   >
+  Create and deploy functions on video.dev cloud.
+</Card>
+{/* <Card title="Referencing Functions" icon="globe-pointer"   > */}
+    <Card title="Calling Functions" icon="code"  href="/cloud_functions/deploy"   >
+
+  Call deployed functions from python code or any API client .
+</Card>
+<Card title="Autoscaling"  icon="arrow-up-wide-short"  href="/cloud_functions/autoscale"  >
+  Autoscaling your functions.
+</Card>
+<Card title="Using Webhooks" icon="webhook"  href="/cloud_functions/webhook"  >
+  Get notified across cloud function lifecycle.
+</Card>
+</CardGroup>
+
+

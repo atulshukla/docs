@@ -4,7 +4,7 @@
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg",
-    "href": "https://video.dev"
+    "href": "/"
   },
   "modeToggle":{
     "default":"dark",
@@ -13,9 +13,9 @@
   "openapi": ["/api-reference/endpoint/openapi.json"],
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#000",
-    "light": "#fff",
-    "dark": "#000",
+    "primary": "#0B2447",
+    "light": "#dfdfdf",
+    "dark": "#0B2447",
     "anchors": {
       "from": "#000",
       "to": "#fff"
@@ -25,20 +25,16 @@
     {
       "name": "Support",
       "url": "mailto:hello@video.dev"
-    },
-    {
-      "name": "Discord",
-      "url": "https://discord.gg/VMasEVVM"
     }
   ],
   "topbarCtaButton": {
-    "name": "Github",
+    "name": "Get Started",
     "url": "https://github.com/videodotdev"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Reference",
+      "url": "reference"
     }
   ],
   "anchors": [
@@ -50,46 +46,79 @@
     {
       "name": "Community",
       "icon": "discord",
-      "url": "https://discord.gg/VMasEVVM"
+      "url": "https://discord.gg/jw8RnKffBz"
     },
     {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://blog.video.dev"
+      "name": "Book a call",
+      "icon": "phone",
+      "url": "https://cal.com/video-dev/30min"
     }
   ],
   "navigation": [
     {
-      "group": "Get Started",
+      "group": "",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "home/introduction",
+        "home/quickstart"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Guides",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        {
+          "group": "Cloud Functions",
+          "pages": [
+            "cloud_functions/overview",
+            "cloud_functions/create",
+            "cloud_functions/deploy",
+            "cloud_functions/autoscale",
+            "cloud_functions/webhook"
+          ]
+        },
+        {
+          "group": "AI Models",
+          "pages": [
+            "ai_models/overview"
+          ]
+        }
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Examples",
       "pages": [
-        "api-reference/introduction"
+        "examples/video_dubbing_app"
       ]
     },
     {
-      "group": "Endpoint Examples",
+      "group": "",
       "pages": [
-        "api-reference/endpoint/import",
-        "api-reference/endpoint/crop",
-        "api-reference/endpoint/trim"
+        "reference/introduction"
+      ]
+    },
+    {
+      "group": "CLI Reference",
+      "pages": [
+        "reference/cli/overview"
+      ]
+    },
+    {
+      "group": "SDK Reference",
+      "pages": [
+        "reference/sdk/overview"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "reference/api/overview",
+        {
+          "group": "Endpoint Examples",
+          "pages": [
+            "reference/api/endpoint/import",
+            "reference/api/endpoint/crop",
+            "reference/api/endpoint/trim"
+          ]
+        }
       ]
     }
   ],
