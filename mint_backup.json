@@ -31,12 +31,65 @@
     "name": "Get Started",
     "url": "https://video.dev"
   },
+  "tabs": [
+    {
+      "name": "Reference",
+      "url": "reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Github",
+      "icon": "github",
+      "url": "https://github.com/videodotdev"
+    },
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.gg/jw8RnKffBz"
+    },
+    {
+      "name": "Book a call",
+      "icon": "phone",
+      "url": "https://cal.com/video-dev/30min"
+    }
+  ],
   "navigation": [
-
     {
       "group": "",
-      "pages": ["home/introduction"]
+      "pages": [
+        "home/introduction",
+        "home/quickstart"
+      ]
     },
+    {
+      "group": "Guides",
+      "pages": [
+        {
+          "group": "Cloud Functions",
+          "pages": [
+            "cloud_functions/overview",
+            "cloud_functions/create",
+            "cloud_functions/deploy",
+            "cloud_functions/autoscale",
+            "cloud_functions/webhook"
+          ]
+        },
+        {
+          "group": "AI Models",
+          "pages": [
+            "ai_models/overview"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Examples",
+      "pages": [
+        "examples/video_dubbing_app"
+      ]
+    },
+
     {
       "group": "API Reference",
       "pages": [
@@ -51,6 +104,7 @@
         {
           "group": "Clips",
           "pages": [
+            "reference/api/endpoint/clips/overview",
             "reference/api/endpoint/clips/clips",
             "reference/api/endpoint/clips/get_clips",
             "reference/api/endpoint/clips/clip",

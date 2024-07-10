@@ -1,0 +1,542 @@
+openapi: 3.0.3
+info:
+  title: video.dev - v1
+  description: Video.dev
+  termsOfService: https://swagger.io/terms/
+  contact:
+    email: atul@video.dev
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1
+externalDocs:
+  description: Find out more about video.dev
+  url: https://video.dev
+servers:
+  - url: https://api.video.dev/v1
+tags:
+  - name: media
+    description: All apis related to video
+    externalDocs:
+      description: docs
+      url: docs.video.dev
+  - name: clips
+    description: All apis related to video
+    externalDocs:
+      description: docs
+      url: docs.video.dev
+paths:
+  /media/import:
+    post:
+      tags:
+        - media
+      summary: Import a media from a URL
+      description: Import a media from a URL
+      operationId: importMedia
+      requestBody:
+        description: Import a media from a URL
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                media:
+                  required:
+                    - url
+                  type: object
+                  properties:
+                    source_media_url:
+                      type: string
+                      example: https://video-clips-test.s3.amazonaws.com/videos/Dw7Lrzmw11Rs0pb619QjCAMeYjo1.mp4
+                      description: URL or identifier of the video source
+                    type:
+                     $ref: '#/components/schemas/MediaTypes'
+        required: true
+      responses:
+        '200':
+          description: Video imported successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Media'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /media/{media_id}:
+    get:
+      tags:
+        - media
+      summary: Get an existing media
+      description: Get an existing media by Id
+      operationId: getMedia
+      parameters:
+        - name: media_id
+          in: path
+          description: ID of media to return
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Media'
+
+
+
+        '400':
+          description: Invalid status value
+  /clip:
+    post:
+      tags:
+        - clips
+      summary: Create custom clip
+      description: Create custom clip
+      operationId: createClip
+      requestBody:
+        description: use params.query to specify search query
+        content:
+          application/json:
+            schema:
+              required:
+                - source_video
+              type: object
+              properties:
+                media_id:
+                  type: string
+                options:
+                  $ref: '#/components/schemas/ClipParams'
+
+
+        required: true
+      responses:
+        '200':
+          description: Clip workflow initiated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Clip'
+                type: object
+                properties:
+                  source_media:
+                    $ref: '#/components/schemas/Media'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /clips:
+    post:
+      tags:
+        - clips
+      summary: Create clips from a video based on query/prompt
+      description: Create clips from a video based on query/prompt
+      operationId: createClips
+      requestBody:
+        description: use params.query to specify search query
+        content:
+          application/json:
+            schema:
+              required:
+                - source_video
+              type: object
+              properties:
+                media_id:
+                  type: string
+                query:
+                  type: string
+                  example: 'all the '
+                  description: query
+                webhook:
+                  $ref: "#/components/schemas/ClipWebhook"
+
+
+        required: true
+      responses:
+        '200':
+          description: Clip workflow initiated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CompleteStatus'
+                type: object
+                properties:
+                  run_id:
+                    type: string
+                  source_media:
+                    $ref: '#/components/schemas/Media'
+                  webhook:
+                    $ref: '#/components/schemas/ClipWebhook'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /clips/{run_id}:
+    get:
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the user to get
+      tags:
+        - clips
+      summary: Create clips from a video
+      description: Create clips from a video
+      operationId: createClips
+      responses:
+        '200':
+          description: Clip workflow initiated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/CompleteStatus'
+                type: object
+                properties:
+                  run_id:
+                    type: string
+                  source_media:
+                    $ref: '#/components/schemas/Media'
+                  clips:
+                    type: array
+                    items: {
+                      $ref: '#/components/schemas/Clip'
+                    }
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /clip/{clip_id}:
+    get:
+      tags:
+        - clips
+      summary: Create clips from a video
+      description: Create clips from a video
+      operationId: createClips
+      responses:
+        '200':
+          description: Clip workflow initiated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/Clip'
+                type: object
+                properties:
+                  source_media:
+                    $ref: '#/components/schemas/Media'
+
+
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /clip/{clip_id}/render_video:
+    post:
+      tags:
+        - clips
+      summary: Create clips from a video
+      description: Create clips from a video
+      operationId: createClips
+      requestBody:
+        description: Create clips from a video
+        content:
+          application/json:
+            schema:
+              allOf:
+                -  $ref: '#/components/schemas/RenderVideo'
+              type: object
+              properties:
+                webhook:
+                  $ref: '#/components/schemas/RenderClipWebhook'
+        required: true
+      responses:
+        '200':
+          description: Clip workflow initiated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/RenderVideo'
+                  - $ref: '#/components/schemas/ProcessingStatus'
+                type: object
+                properties:
+                  render_id:
+                    type: string
+                  from_clip:
+                    $ref: '#/components/schemas/Clip'
+                  rendered_media:
+                    allOf:
+                      - $ref: '#/components/schemas/ProcessingStatus'
+                    type: object
+                    properties:
+                      media_id:
+                        type: string
+                  webhook:
+                    $ref: '#/components/schemas/RenderClipWebhook'
+
+
+
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+  /clip/{clip_id}/render/{render_id}:
+    get:
+      tags:
+        - clips
+      summary: Create clips from a video
+      description: Create clips from a video
+      operationId: createClips
+      responses:
+        '200':
+          description: Clip workflow initiated successfully
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: '#/components/schemas/RenderVideo'
+                  - $ref: '#/components/schemas/CompleteStatus'
+                type: object
+                properties:
+                  render_id:
+                    type: string
+                  from_clip:
+                    $ref: '#/components/schemas/Clip'
+                  rendered_media:
+                    $ref: '#/components/schemas/Video'
+                  webhook:
+                    $ref: '#/components/schemas/RenderClipWebhook'
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+components:
+  schemas:
+    ClipParams:
+      type: object
+      properties:
+        start_time_ms:
+          type: number
+          description: start time
+        end_time_ms:
+          type: number
+          description: end time
+    Status:
+      type: string
+      enum: &Status
+        - complete
+        - processing
+        - error
+    CompleteStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "complete"
+          enum: *Status
+    ProcessingStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "processing"
+          enum: *Status
+    ErrorStatus:
+      type: object
+      properties:
+        status:
+          type: string
+          example: "error"
+          enum: *Status
+    RenderVideo:
+      type: object
+      properties:
+        crop:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+            options:
+              type: object
+              properties:
+                aspect_ratio:
+                  type: string
+                  enum: [1:1, 4:3, 3:4, 4:5, 5:4, 9:16]
+                  example: 16:9
+                auto_crop:
+                  type: boolean
+    ClipWebhook:
+      required:
+        - url
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://system.new/webhook/v1
+        events:
+          type: array
+          items:
+            required:
+              - type
+            type: string
+            enum: [ new_clip, error ]
+    RenderClipWebhook:
+      required:
+        - url
+      type: object
+      properties:
+        url:
+          type: string
+          example: https://system.new/webhook/v1
+        events:
+          type: array
+          items:
+            required:
+              - type
+            type: string
+            enum: *Status
+
+    File:
+      type: object
+      properties:
+        file_id:
+          type: string
+          description: URL or identifier of the file source
+        source_file_url:
+          type: string
+          example: https://video-clips-test.s3.amazonaws.com/videos/Dw7Lrzmw11Rs0pb619QjCAMeYjo1.mp4
+          description: URL or identifier of the video source
+    MediaTypes:
+      type: string
+      enum: &MediaTypes
+        - video
+        - audio
+        - image
+
+
+    VideoProps:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [video]
+        duration_ms:
+          type: number
+          description: URL or identifier of the video source
+        fps:
+          type: number
+          description: URL or identifier of the video source
+        frame_count:
+          type: number
+          description: URL or identifier of the video source
+        width:
+          type: number
+          description: URL or identifier of the video source
+        height:
+          type: number
+        channels:
+          type: number
+    AudioProps:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [ audio ]
+        duration_ms:
+          type: number
+          description: URL or identifier of the video source
+        channels:
+          type: number
+    ImageProps:
+      type: object
+      properties:
+        type:
+          type: string
+          enum: [ image ]
+        width:
+          type: number
+        height:
+          type: number
+        channels:
+          type: number
+    MediaBase:
+      type: object
+      properties:
+        media_id:
+          type: string
+          description: URL or identifier of the video source
+        media_url:
+          type: string
+          example: video.dev hosted url
+          description: URL or identifier of the video source
+      allOf:
+        - $ref: '#/components/schemas/CompleteStatus'
+    Media:
+      type: object
+      properties:
+        media_info:
+            oneOf:
+              - $ref: '#/components/schemas/VideoProps'
+              - $ref: '#/components/schemas/AudioProps'
+              - $ref: '#/components/schemas/ImageProps'
+      allOf:
+        - $ref: '#/components/schemas/MediaBase'
+
+    Video:
+      type: object
+      properties:
+        media_info:
+          $ref: '#/components/schemas/VideoProps'
+      allOf:
+        - $ref: '#/components/schemas/MediaBase'
+
+    Audio:
+      type: object
+      properties:
+        media_info:
+          $ref: '#/components/schemas/AudioProps'
+      allOf:
+        - $ref: '#/components/schemas/MediaBase'
+    Image:
+      type: object
+      properties:
+        media_info:
+          $ref: '#/components/schemas/ImageProps'
+      allOf:
+        - $ref: '#/components/schemas/MediaBase'
+    Clip:
+      type: object
+      properties:
+        clip_id:
+          type: string
+        source_media_id:
+          type: string
+          description: source video id
+        source_media_type:
+            allOf:
+              - $ref: '#/components/schemas/MediaTypes'
+        options:
+          allOf:
+            - $ref: '#/components/schemas/ClipParams'
+          type: object
+          properties:
+            duration_ms:
+              type: number
+              description: duration of the clip
+
+    VideoClip:
+      allOf: # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/Clip'
+        - $ref: '#/components/schemas/VideoProps'
+    AudioClip:
+      allOf: # Combines the BasicErrorModel and the inline model
+        - $ref: '#/components/schemas/Clip'
+        - $ref: '#/components/schemas/AudioProps'
+
