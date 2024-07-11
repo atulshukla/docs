@@ -10,7 +10,7 @@
     "default":"dark",
     "isHidden":false
   },
-  "openapi": ["/api-reference/endpoint/openapi.yaml"],
+  "openapi": ["/reference/endpoint/openapi.yaml"],
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#0B2447",
