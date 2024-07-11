@@ -368,7 +368,7 @@ components:
       properties:
         event:
           type: string
-          enum: [ clips.complete ]
+          enum: [ auto_clips.complete ]
         body:
           type: object
           properties:
@@ -388,7 +388,7 @@ components:
       properties:
         event:
           type: string
-          enum: [ clips.new_clips ]
+          enum: [ auto_clips.new_clips ]
         body:
           type: object
           properties:
