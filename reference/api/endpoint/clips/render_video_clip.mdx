@@ -1,0 +1,22 @@
+---
+title: 'Render Video Clip'
+openapi: 'POST /clip/{clip_id}/render_video'
+---
+
+
+
+### Webhooks
+
+import WebhookIntro from '/snippets/webhook/webhook.mdx';
+import WebhookBody from '/snippets/webhook/webhook_body.mdx';
+
+<WebhookIntro method="auto clips"/>
+
+| Event                                                                         | Description                               |
+|-------------------------------------------------------------------------------|-------------------------------------------|
+| [complete](/reference/api/endpoint/clips/webhooks/render_video_clip/complete) | Occurs when a new clips are available     |
+| [error](/reference/api/endpoint/clips/webhooks/render_video_clip/error)       | Occurs when auto clip creation has errors |
+
+<WebhookBody/>
+
+

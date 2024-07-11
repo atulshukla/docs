@@ -169,12 +169,12 @@ paths:
   /auto_clips/{run_id}:
     get:
       parameters:
-        - in: query
+        - in: path
           name: run_id
           schema:
-            type: integer
+            type: string
           required: true
-          description: Reference id received from Create Auto Clip API
+          description: Reference id received from [Create Auto Clip](/reference/api/endpoint/clips/auto_clips) API
       tags:
         - clips
       summary: Create clips from a video
@@ -243,6 +243,12 @@ paths:
             Validation exception
   /clip/{clip_id}:
     get:
+      parameters:
+        - in: path
+          name: clip_id
+          schema:
+            type: string
+          required: true
       tags:
         - clips
       summary: Create clips from a video
@@ -256,9 +262,6 @@ paths:
               schema:
                 allOf:
                   - $ref: '#/components/schemas/Clip'
-
-
-
         '400':
           description: Invalid input
         '422':
@@ -288,16 +291,25 @@ paths:
           content:
             application/json:
               schema:
+                required:
+                  - render_id
+                  - source_clip
+                  - rendered_media
                 allOf:
                   - $ref: '#/components/schemas/RenderVideo'
                   - $ref: '#/components/schemas/ProcessingStatus'
                 type: object
                 properties:
                   render_id:
-                    type: string
-                  from_clip:
-                    $ref: '#/components/schemas/Clip'
+                    $ref: '#/components/schemas/RenderId'
+                  source_clip:
+                    description: Source clip to render
+                    allOf:
+                      -  $ref: '#/components/schemas/Clip'
                   rendered_media:
+                    required:
+                      - media_id
+                    description: Rendered media info
                     allOf:
                       - $ref: '#/components/schemas/ProcessingStatus'
                     type: object
@@ -306,15 +318,19 @@ paths:
                         type: string
                   webhook:
                     $ref: '#/components/schemas/Webhook'
-
-
-
         '400':
           description: Invalid input
         '422':
           description: Validation exception
   /clip/{clip_id}/render/{render_id}:
     get:
+      parameters:
+        - in: path
+          name: render_id
+          schema:
+            type: string
+          required: true
+          description: Reference id received from [Render Video Clip](/reference/api/endpoint/clips/render_video_clip) API
       tags:
         - clips
       summary: Create clips from a video
@@ -326,19 +342,7 @@ paths:
           content:
             application/json:
               schema:
-                allOf:
-                  - $ref: '#/components/schemas/RenderVideo'
-                  - $ref: '#/components/schemas/CompleteStatus'
-                type: object
-                properties:
-                  render_id:
-                    type: string
-                  from_clip:
-                    $ref: '#/components/schemas/Clip'
-                  rendered_media:
-                    $ref: '#/components/schemas/Video'
-                  webhook:
-                    $ref: '#/components/schemas/Webhook'
+                $ref: '#/components/schemas/RenderVideoClipResponse'
         '400':
           description: Invalid input
         '422':
@@ -350,6 +354,9 @@ components:
       in: header
       name: X-API-Key
   schemas:
+    RenderId:
+      description: Reference id to check render status
+      type: string
     RunId:
       description: Reference id to fetch clips created by auto clips
       type: string
@@ -434,6 +441,43 @@ components:
           properties:
             run_id:
               $ref: '#/components/schemas/RunId'
+    RenderVideoClipErrorPayload:
+      required:
+        - body
+        - event
+      type: object
+      properties:
+        event:
+          type: string
+          enum: [ render_video_clip.error ]
+        body:
+          required:
+            - run_id
+          allOf:
+            - $ref: '#/components/schemas/ErrorPayload'
+          type: object
+          properties:
+            render_id:
+              $ref: '#/components/schemas/RenderId'
+    RenderVideoClipCompletePayload:
+      required:
+        - body
+        - event
+      type: object
+      properties:
+        event:
+          type: string
+          enum: [ render_video_clip.complete ]
+        body:
+          allOf:
+            - $ref: '#/components/schemas/RenderVideoClipResponse'
+          type: object
+          properties:
+            status:
+              type: string
+              enum:
+                - complete
+
     ImportMediaCompletePayload:
       required:
         - body
@@ -505,12 +549,17 @@ components:
           properties:
             enabled:
               type: boolean
+              default: false
+              description: Whether to perform cropping
             aspect_ratio:
               type: string
+              default: '9:16'
               enum: [ 1:1, 4:3, 3:4, 4:5, 5:4, 9:16 ]
               example: 16:9
-            auto_crop:
+            smart_crop:
               type: boolean
+              default: false
+              description: Auto-picks the main subject to focus on while cropping.
     ClipWebhook:
       required:
         - url
@@ -662,3 +711,26 @@ components:
           allOf:
           - $ref: '#/components/schemas/AudioVideo'
           description: Source media to create clip from
+    RenderVideoClipResponse:
+      required:
+        - render_id
+        - source_clip
+        - rendered_media
+      allOf:
+        - $ref: '#/components/schemas/RenderVideo'
+        - $ref: '#/components/schemas/CompleteStatus'
+      type: object
+      properties:
+        render_id:
+          $ref: '#/components/schemas/RenderId'
+        source_clip:
+          description: Source clip to render
+          allOf:
+            - $ref: '#/components/schemas/Clip'
+        rendered_media:
+          description: Rendered media info
+          allOf:
+            - $ref: '#/components/schemas/Video'
+
+        webhook:
+          $ref: '#/components/schemas/Webhook'

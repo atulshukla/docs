@@ -6,13 +6,11 @@
     "light": "/logo/light.svg",
     "href": "/"
   },
-  "modeToggle": {
-    "default": "dark",
-    "isHidden": false
+  "modeToggle":{
+    "default":"dark",
+    "isHidden":false
   },
-  "openapi": [
-    "/api-reference/endpoint/openapi.yaml"
-  ],
+  "openapi": ["/api-reference/endpoint/openapi.yaml"],
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#0B2447",
@@ -33,13 +31,27 @@
     "name": "Get Started",
     "url": "https://video.dev"
   },
+  "tabs": [
+    {
+      "name": "Reference",
+      "url": "reference"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Book a call",
+      "icon": "phone",
+      "url": "https://cal.com/video-dev/30min"
+    }
+  ],
   "navigation": [
     {
       "group": "",
       "pages": [
         "home/introduction"
       ]
-    },
+    } ,
+
     {
       "group": "Media",
       "pages": [
@@ -54,13 +66,13 @@
         "reference/api/endpoint/clips/get_auto_clips",
         "reference/api/endpoint/clips/clip",
         "reference/api/endpoint/clips/get_clip",
-        "reference/api/endpoint/clips/render_clip_video",
-        "reference/api/endpoint/clips/get_render_status"
+        "reference/api/endpoint/clips/render_video_clip",
+        "reference/api/endpoint/clips/check_render_status"
       ]
     }
   ],
-  "feedback": {
-    "thumbsRating": true
+  "feedback":{
+    "thumbsRating":true
   },
   "footerSocials": {
     "x": "https://x.com/videodotdev",

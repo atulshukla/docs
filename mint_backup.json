@@ -91,28 +91,21 @@
     },
 
     {
-      "group": "API Reference",
+      "group": "Media",
       "pages": [
-        "reference/api/overview",
-        {
-          "group": "Media",
-          "pages": [
-            "reference/api/endpoint/media/import",
-            "reference/api/endpoint/media/get"
-          ]
-        },
-        {
-          "group": "Clips",
-          "pages": [
-            "reference/api/endpoint/clips/overview",
-            "reference/api/endpoint/clips/clips",
-            "reference/api/endpoint/clips/get_clips",
-            "reference/api/endpoint/clips/clip",
-            "reference/api/endpoint/clips/get_clip",
-            "reference/api/endpoint/clips/render_clip_video",
-            "reference/api/endpoint/clips/get_render_status"
-          ]
-        }
+        "reference/api/endpoint/media/import",
+        "reference/api/endpoint/media/get"
+      ]
+    },
+    {
+      "group": "Clips",
+      "pages": [
+        "reference/api/endpoint/clips/auto_clips",
+        "reference/api/endpoint/clips/get_auto_clips",
+        "reference/api/endpoint/clips/clip",
+        "reference/api/endpoint/clips/get_clip",
+        "reference/api/endpoint/clips/render_video_clip",
+        "reference/api/endpoint/clips/check_render_status"
       ]
     }
   ],
