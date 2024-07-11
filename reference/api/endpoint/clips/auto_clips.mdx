@@ -1,0 +1,24 @@
+---
+title: 'Create Auto Clips'
+openapi: 'POST /auto_clips'
+---
+
+
+
+
+### Webhooks
+
+import WebhookIntro from '/snippets/webhook/webhook.mdx';
+import WebhookBody from '/snippets/webhook/webhook_body.mdx';
+
+<WebhookIntro method="auto clips"/>
+
+| Event                                                                    | Description                               |
+|--------------------------------------------------------------------------|-------------------------------------------|
+| [new_clips](/reference/api/endpoint/clips/webhooks/auto_clips/new_clips) | Occurs when a new clips are available     |
+| [complete](/reference/api/endpoint/clips/webhooks/auto_clips/complete)   | Occurs when auto clip creation completes  |
+| [error](/reference/api/endpoint/clips/webhooks/auto_clips/error)         | Occurs when auto clip creation has errors |
+
+<WebhookBody/>
+
+

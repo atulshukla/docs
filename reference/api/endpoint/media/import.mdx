@@ -3,36 +3,18 @@ title: 'Import Media'
 openapi: 'POST /media/import'
 ---
 
-
- This endpoint can be used to import video to `video.dev`. The returned video `id` is a reference to the imported video.
-
-
 ### Webhooks
 
-Status of import is delivered to an external web server via webhooks.
 
-The following is a full list of all webhook events which can be subscribed.
+import WebhookIntro from '/snippets/webhook/webhook.mdx';
+import WebhookBody from '/snippets/webhook/webhook_body.mdx';
 
-| Event    | Description |
-| -------- | ------- |
-| start    | Occurs when a import starts|
-| complete | Occurs when a import completes    |
-| error    | Occurs when a import has errors    |
+<WebhookIntro method="media import"/>
 
-#### Example
-``` JSON
-"webhook": {
-    "url": "https://system.new/webhook/v1",
-    "events": [
-      {
-        "type": "start",
-        "url": "https://system.new/webhook/v2"
-      },
-      {
-        "type": "completed"
-      }
-    ]
-  }
-  ```
+| Event                                                                        | Description                                       |
+|------------------------------------------------------------------------------|---------------------------------------------------|
+| [complete](/reference/api/endpoint/media/webhooks/import_media/complete)     | Occurs when a media import completes              |
+| [error](/reference/api/endpoint/media/webhooks/import_media/error)           | Occurs when a media import has encountered errors |
 
-  **Note:** Webhook url can be overidden for each event type
+<WebhookBody/>
+

@@ -6,11 +6,13 @@
     "light": "/logo/light.svg",
     "href": "/"
   },
-  "modeToggle":{
-    "default":"dark",
-    "isHidden":false
+  "modeToggle": {
+    "default": "dark",
+    "isHidden": false
   },
-  "openapi": ["/api-reference/endpoint/openapi.yaml"],
+  "openapi": [
+    "/api-reference/endpoint/openapi.yaml"
+  ],
   "favicon": "/favicon.svg",
   "colors": {
     "primary": "#0B2447",
@@ -32,38 +34,33 @@
     "url": "https://video.dev"
   },
   "navigation": [
-
     {
       "group": "",
-      "pages": ["home/introduction"]
+      "pages": [
+        "home/introduction"
+      ]
     },
     {
-      "group": "API Reference",
+      "group": "Media",
       "pages": [
-        "reference/api/overview",
-        {
-          "group": "Media",
-          "pages": [
-            "reference/api/endpoint/media/import",
-            "reference/api/endpoint/media/get"
-          ]
-        },
-        {
-          "group": "Clips",
-          "pages": [
-            "reference/api/endpoint/clips/clips",
-            "reference/api/endpoint/clips/get_clips",
-            "reference/api/endpoint/clips/clip",
-            "reference/api/endpoint/clips/get_clip",
-            "reference/api/endpoint/clips/render_clip_video",
-            "reference/api/endpoint/clips/get_render_status"
-          ]
-        }
+        "reference/api/endpoint/media/import",
+        "reference/api/endpoint/media/get"
+      ]
+    },
+    {
+      "group": "Clips",
+      "pages": [
+        "reference/api/endpoint/clips/auto_clips",
+        "reference/api/endpoint/clips/get_auto_clips",
+        "reference/api/endpoint/clips/clip",
+        "reference/api/endpoint/clips/get_clip",
+        "reference/api/endpoint/clips/render_clip_video",
+        "reference/api/endpoint/clips/get_render_status"
       ]
     }
   ],
-  "feedback":{
-    "thumbsRating":true
+  "feedback": {
+    "thumbsRating": true
   },
   "footerSocials": {
     "x": "https://x.com/videodotdev",
