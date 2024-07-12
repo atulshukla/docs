@@ -2,7 +2,7 @@ openapi: 3.0.3
 info:
   title: video.dev - v1
   description: Video.dev
-  termsOfService: https://swagger.io/terms/
+  termsOfService: https://video.dev/terms/
   contact:
     email: atul@video.dev
   license:
@@ -18,12 +18,12 @@ security:
   - ApiKeyAuth: [ ]
 tags:
   - name: media
-    description: All apis related to video
+    description: All apis related to media
     externalDocs:
       description: docs
       url: docs.video.dev
   - name: clips
-    description: All apis related to video
+    description: All apis related to clips
     externalDocs:
       description: docs
       url: docs.video.dev
@@ -32,7 +32,7 @@ paths:
     post:
       tags:
         - media
-      summary: Import a media from a URL
+      summary: Import media from an external URL
       description: Import external media `video | audio | image`
       operationId: importMedia
       requestBody:
@@ -45,30 +45,15 @@ paths:
               type: object
               properties:
                 source_media_url:
-                  type: string
-                  example: https://video-clips-test.s3.amazonaws.com/videos/Dw7Lrzmw11Rs0pb619QjCAMeYjo1.mp4
-                  description: URL of the external video source
+                  $ref: '#/components/schemas/SourceMediaUrl'
                 type:
                   $ref: '#/components/schemas/MediaTypes'
                 webhook:
                   $ref: '#/components/schemas/Webhook'
         required: true
-      callbacks: # Callback definition
-        complete: # Event name
-          'https://system.new/callbackUrl': # The callback URL,
-            post:
-              requestBody: # Contents of the callback message
-                required: true
-                content:
-                  application/json:
-                    schema:
-                      $ref: '#/components/schemas/Media'
-              responses: # Expected responses to the callback message
-                '200':
-                  description: Your server returns this code if it accepts the callback
       responses:
         '200':
-          description: Video imported successfully
+          description: Media import initiated successfully
           content:
             application/json:
               schema:
@@ -84,9 +69,7 @@ paths:
                   media_id:
                     type: string
                   source_media_url:
-                    type: string
-                    example: https://video-clips-test.s3.amazonaws.com/videos/Dw7Lrzmw11Rs0pb619QjCAMeYjo1.mp4
-                    description: URL of the external video source
+                    $ref: '#/components/schemas/SourceMediaUrl'
                   type:
                     $ref: '#/components/schemas/MediaTypes'
                   webhook:
@@ -97,7 +80,7 @@ paths:
           description: Validation exception
   /media/{media_id}:
     get:
-      #security: []
+      #security: [] # to disable auth on this api
       tags:
         - media
       summary: Get an existing media
@@ -325,6 +308,12 @@ paths:
     get:
       parameters:
         - in: path
+          name: clip_id
+          schema:
+            type: string
+          required: true
+          description: Clip Id
+        - in: path
           name: render_id
           schema:
             type: string
@@ -353,6 +342,10 @@ components:
       in: header
       name: X-API-Key
   schemas:
+    SourceMediaUrl:
+      description: URL for the external media (audio, video, image)
+      type: string
+      example: https://external.media/media.mp4
     RenderId:
       description: Reference id to check render status
       type: string
