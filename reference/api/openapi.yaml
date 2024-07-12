@@ -177,12 +177,12 @@ paths:
           description: Reference id received from [Create Auto Clip](/reference/api/endpoint/clips/auto_clips) API
       tags:
         - clips
-      summary: Create clips from a video
-      description: Create clips from a video
-      operationId: createClips
+      summary: Get clips created by auto clip API
+      description: Get clips created by auto clip API
+      operationId: getAutoClips
       responses:
         '200':
-          description: Clip workflow initiated successfully
+          description: Auto Clips
           content:
             application/json:
               schema:
@@ -251,9 +251,9 @@ paths:
           required: true
       tags:
         - clips
-      summary: Create clips from a video
-      description: Create clips from a video
-      operationId: createClips
+      summary: Get Clips by Id
+      description: Get Clips by Id
+      operationId: getClip
       responses:
         '200':
           description: Clip workflow initiated successfully
@@ -270,11 +270,10 @@ paths:
     post:
       tags:
         - clips
-      summary: Create clips from a video
-      description: Create clips from a video
-      operationId: createClips
+      summary: Render clip into a video
+      description: Render clip into a video
+      operationId: renderClips
       requestBody:
-        description: Create clips from a video
         content:
           application/json:
             schema:
@@ -287,7 +286,7 @@ paths:
         required: true
       responses:
         '200':
-          description: Clip workflow initiated successfully
+          description: Render Clip initiated successfully
           content:
             application/json:
               schema:
@@ -333,12 +332,12 @@ paths:
           description: Reference id received from [Render Video Clip](/reference/api/endpoint/clips/render_video_clip) API
       tags:
         - clips
-      summary: Create clips from a video
-      description: Create clips from a video
-      operationId: createClips
+      summary: Check render status
+      description:  Check video clip render status
+      operationId: checkRenderStatus
       responses:
         '200':
-          description: Clip workflow initiated successfully
+          description: Check render status response
           content:
             application/json:
               schema:
